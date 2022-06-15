@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+
+  rabbitmq:
+    image: 'rabbitmq:3-management'
+    container_name: rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+
+  consumer:
+    build: consumer
+    container_name: consumer
+    command: python3 app.py
+    restart: always
+    volumes:
+      - ./consumer:/app
+
+  producer:
+    build: producer
+    container_name: producer
+    command: python3 app.py
+    restart: always
+    volumes:
+      - ./producer:/app
+    ports:
+      - 5001:5000
+
+  server:
+    build: server
+    container_name: server
+    command: python3 app.py
+    restart: always
+    volumes:
+      - ./server:/app
+    ports:
+      - 5000:5000
+    depends_on:
+      - postdb
+
+  postdb:
+    image: postgres
+    container_name: postdb
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
