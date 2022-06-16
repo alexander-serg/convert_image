@@ -1,7 +1,9 @@
 import json
-import requests
-from PIL import Image
 import base64
+
+import requests
+
+from PIL import Image
 
 
 def convert(json_image):
