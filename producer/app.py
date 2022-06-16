@@ -2,8 +2,17 @@ import json
 
 import pika
 from flask import Flask, request, Response
+from marshmallow import Schema, fields
 
 app = Flask(__name__)
+
+
+class ImagesSchema(Schema):
+    file = fields.Str()
+    file_name = fields.Str()
+    
+    
+schema = ImagesSchema()
 
 
 @app.route('/', methods=['POST'])
@@ -11,7 +20,7 @@ def image_json():
     content_type = request.headers.get('Content-Type')
     if content_type == 'application/json':
         request_data = request.get_json()
-        result = json.dumps(request_data)
+        result = schema.dumps(request_data)
         try:
             connection = pika.BlockingConnection(
                 pika.ConnectionParameters(host="rabbitmq")
