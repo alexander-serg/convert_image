@@ -1,5 +1,7 @@
 import json
+
 import pika
+
 from pika import exceptions
 from flask import Flask, request, Response
 
@@ -13,7 +15,9 @@ def image_json():
         request_data = request.get_json()
         result = json.dumps(request_data)
         try:
-            connection = pika.BlockingConnection(pika.ConnectionParameters(host="rabbitmq"))
+            connection = pika.BlockingConnection(
+                pika.ConnectionParameters(host="rabbitmq")
+            )
         except pika.exceptions.AMQPConnectionError as exc:
             print("Failed to connect to RabbitMQ service.")
 
