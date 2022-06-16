@@ -1,4 +1,5 @@
 import pika
+
 from grayscale import convert
 
 
