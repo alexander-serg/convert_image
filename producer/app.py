@@ -1,7 +1,6 @@
 import json
 
 import pika
-from pika import exceptions
 from flask import Flask, request, Response
 
 app = Flask(__name__)
