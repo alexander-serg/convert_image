@@ -4,7 +4,9 @@ from grayscale import convert
 
 
 try:
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host="rabbitmq"))
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(host="rabbitmq")
+    )
 except pika.exceptions.AMQPConnectionError as exc:
     print("Failed to connect to RabbitMQ service.")
 
