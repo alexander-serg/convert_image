@@ -18,7 +18,7 @@ def receive_image():
     db_session.commit()
     images = Images.query.all()
     print(images)
-    return Response(status=202)
+    return Response(status=201)
 
 
 @app.teardown_appcontext
